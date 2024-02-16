@@ -1,7 +1,6 @@
 #include "Tridiagonal.hpp"
 
-namespace all_files {
-	std::vector<double> solveTridiagonalMatrix(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d)
+std::vector<double> solveTridiagonalMatrix(const std::vector<double>& a, const std::vector<double>& b, const std::vector<double>& c, const std::vector<double>& d)
 	{
 	    	int n = d.size();
 	    	std::vector<double> p(n);
@@ -26,5 +25,4 @@ namespace all_files {
 			x[i] = p[i]*x[i+1] + q[i];
 	    	}
 		return x;
-	}
 }
