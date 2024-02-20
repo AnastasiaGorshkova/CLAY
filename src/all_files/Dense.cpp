@@ -1,67 +1,70 @@
 #include "Dense.hpp"
 
+Dense::Dense(const std::vector<double>& data, std::size_t rows, std::size_t cols) : rows(rows), cols(cols), data(data) {}
 
-Dense::Dense(int rows, int cols) : rows(rows), cols(cols), data(rows*cols) {}
-
-double& Dense::operator()(int i, int j) {
+double Dense::operator()(std::size_t i, std::size_t j) const {
     return data[i*cols + j];
 }
 
-const double& Dense::operator()(int i, int j) const {
-    return data[i*cols + j];
+int Dense::get_cols() const {
+	return cols;
 }
+	    
+int Dense::get_rows() const {
+	return rows;
+}
+
 
 Dense Dense::operator+(const Dense& other) const {
-    Dense result(rows, cols);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            result(i, j) = (*this)(i, j) + other(i, j);
+    std::vector<double> result; 
+    for (std::size_t i = 0; i < rows; ++i) {
+        for (std::size_t j = 0; j < cols; ++j) {
+            result.push_back(data[i * cols + j] + other(i,j));
         }
     }
-    return result;
+    Dense ans(result, cols, rows);
+    return ans;
 }
 
 Dense Dense::operator*(double alpha) const {
-    Dense result(rows, cols);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            result(i, j) = (*this)(i, j) * alpha;
+    std::vector<double> result; 
+    for (std::size_t i = 0; i < rows; ++i) {
+        for (std::size_t j = 0; j < cols; ++j) {
+            result.push_back(data[i * cols + j] * alpha);
         }
     }
-    return result;
+    Dense ans(result, cols, rows);
+    return ans;
 }
 
 std::vector<double> Dense::operator*(const std::vector<double>& vec) const {
-    std::vector<double> result(rows);
-    for (int i = 0; i < rows; ++i) {
-        result[i] = 0;
-        for (int j = 0; j < cols; ++j) {
-            result[i] += (*this)(i, j) * vec[j];
+    std::vector<double> result;
+    for (std::size_t i = 0; i < rows; ++i) {
+        for (std::size_t j = 0; j < cols; ++j) {
+            result.push_back(data[i * cols + j] * vec[j]);
         }
-    }
+    } 
     return result;
 }
 
 Dense Dense::operator*(const Dense& other) const {
-    Dense result(rows, other.cols);
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < other.cols; ++j) {
-            result(i, j) = 0;
-            for (int k = 0; k < cols; ++k) {
-                result(i, j) += (*this)(i, k) * other(k, j);
+    std::vector<double> result;
+    for (std::size_t i = 0; i < rows; ++i) {
+        for (std::size_t j = 0; j < other.cols; ++j) {
+            for (std::size_t k = 0; k < cols; ++k) {
+                result.push_back(data[i * cols + k] * other(k, j));
             }
         }
     }
-    return result;
+    Dense ans(result, cols, rows);
+    return ans;
 }
 
 void Dense::print() const {
-    for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < cols; ++j) {
-            std::cout << (*this)(i, j) << " ";
+    for (std::size_t i = 0; i < rows; ++i) {
+        for (std::size_t j = 0; j < cols; ++j) {
+            std::cout << data[i * cols + j] << " ";
         }
         std::cout << std::endl;
     }
 }
-
-
