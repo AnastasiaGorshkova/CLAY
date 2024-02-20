@@ -2,21 +2,25 @@
 
 #include <iostream>
 #include <vector>
+#include "vector.hpp"
 
 class Dense 
 {
 	private:
-	    int rows, cols;
+	    std::size_t rows, cols;
 	    std::vector<double> data;
 	public:
 	    // конструктор класса 
-	    Dense(int rows, int cols);
-
-	    // доступ к элементу матрицы по индексам для изменения
-	    double& operator()(int i, int j);
+	    Dense(const std::vector<double>& data, std::size_t rows, std::size_t cols);
 	    
 	    // доступ к элементу матрицы по индексам для чтения
-	    const double& operator()(int i, int j) const;
+	    double operator()(std::size_t i, std::size_t j) const;
+	    
+	    // количество столбцов
+	    int get_cols() const;
+	    
+	    // количество строк
+	    int get_rows() const;
 	    
 	    // сложение двух матриц
 	    Dense operator+(const Dense& other) const;
