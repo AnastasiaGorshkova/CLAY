@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include  <all_files/Tridiagonal.hpp>
+#include <Solvers/Tridiagonal.hpp>
 
 
 TEST(TRIDIAGONAL, TEST_1) 

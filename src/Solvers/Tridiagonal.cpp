@@ -25,4 +25,4 @@ std::vector<double> solveTridiagonalMatrix(const std::vector<double>& a, const s
 			x[i] = p[i]*x[i+1] + q[i];
 	    	}
 		return x;
-}
+};

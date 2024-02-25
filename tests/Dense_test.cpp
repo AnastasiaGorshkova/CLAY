@@ -1,5 +1,5 @@
 #include<gtest/gtest.h>
-#include <all_files/Dense.hpp>
+#include <Matrix & Vector/Dense.hpp>
 
 TEST(Dense, TEST_1)
 {

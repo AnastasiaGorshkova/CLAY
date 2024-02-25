@@ -46,3 +46,36 @@ void print(const std::vector<double>& result) {
         }
     std::cout << std::endl;    
 }
+
+std::vector<double> operator/(const std::vector<double>& a, const double& alpha) {
+    std::vector<double> c(a.size());
+    for (std::size_t i = 0; i < a.size(); i++) {
+    	c[i] = a[i] / alpha ;
+    }
+    return c;
+}
+
+
+
+double modul(const std::vector<double>& x){
+    double result = 0;
+    for(std::size_t i = 0; i < x.size(); i++){
+        result+= std::pow(x[i],2);
+    }
+    return std::pow(result,0.5);
+}
+
+double sign(const std::vector<double>& x){
+    if(x[0] < 0) return -1;
+    return 1;
+}
+
+std::vector<double> transposed(const std::vector<double>& x) {
+    std::vector<double> result;
+    for (std::size_t i = 0; i < x.size(); i++) {
+        for (std::size_t j = 0; j < x.size(); j++) {
+            result.push_back(x[i] * x[j]);
+        }
+    }
+    return result;
+}

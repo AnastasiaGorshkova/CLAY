@@ -6,11 +6,11 @@ double Dense::operator()(std::size_t i, std::size_t j) const {
     return data[i*cols + j];
 }
 
-int Dense::get_cols() const {
+std::size_t Dense::get_cols() const {
 	return cols;
 }
 	    
-int Dense::get_rows() const {
+std::size_t Dense::get_rows() const {
 	return rows;
 }
 
@@ -67,4 +67,50 @@ void Dense::print() const {
         }
         std::cout << std::endl;
     }
+}
+
+std::vector<double> Dense::get_elements(const std::vector<double>& data) const {
+    return data;
+}
+
+std::vector<double> Dense::get_column(std::size_t num) const{
+        std::vector<double> column(rows, 0);
+        for(int i = 0; i < rows; i++){
+            column[i] = data[rows * i + num];
+        }
+        return column;
+    }
+
+std::vector<double> Dense::get_row(std::size_t num) const{
+        std::vector<double> row(cols, 0);
+        for(int j = 0; j < cols; j++){
+            row[j] = data[num*cols + j];
+        }
+        return row;
+}
+
+/*void Dense::single(std::size_t n) {
+    std::vector<double> vec(n * n);
+    for (std::size_t i = 0; i < n; i++) {
+        vec[n * i + i] = 1;
+    }
+    return Dense A(vec, n, n);
+}
+*/
+
+void Dense::swap_elements(std::size_t i, std::size_t j, double num) {
+        data[i * cols + j] = num;
+    }
+
+Dense Dense::transpon() const{
+    std::vector<double> v(cols*rows);
+    for (std::size_t i = 0; i < rows; i++) {
+        for (std::size_t j = 1 + i; j < cols; j++) {
+            v[j * cols + i] = data[i * cols + j];
+            v[i * cols + j] = data[j * cols + i];
+        }
+        v[i * cols + i] = data[i * cols + i];
+    }
+    Dense N(v, rows, cols);
+    return N;
 }

@@ -5,8 +5,8 @@
 #include <random>
 #include <chrono>
 
-#include "../src/all_files/Dense.hpp"
-#include "../src/all_files/CSR.hpp"
+#include "../src/Matrix & Vector/Dense.hpp"
+#include "../src/Matrix & Vector/CSR.hpp"
 
 using high_resolution_clock = std::chrono::high_resolution_clock;
 

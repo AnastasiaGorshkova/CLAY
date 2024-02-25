@@ -17,10 +17,10 @@ class Dense
 	    double operator()(std::size_t i, std::size_t j) const;
 	    
 	    // количество столбцов
-	    int get_cols() const;
+	    std::size_t get_cols() const;
 	    
 	    // количество строк
-	    int get_rows() const;
+	    std::size_t get_rows() const;
 	    
 	    // сложение двух матриц
 	    Dense operator+(const Dense& other) const;
@@ -36,4 +36,13 @@ class Dense
 	    
 	    // вывод матрицы
 	    void print() const;
+	    
+	    
+	    
+	    std::vector<double> get_column(std::size_t num) const;
+	    std::vector<double> get_row(std::size_t num) const;
+	    std::vector<double> get_elements(const std::vector<double>& data) const;
+	    void single(std::size_t n);
+	    void swap_elements(std::size_t i, std::size_t j, double num);
+	    Dense transpon() const;
 };
