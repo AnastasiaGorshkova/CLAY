@@ -16,10 +16,10 @@ std::size_t Dense::get_rows() const {
 
 
 Dense Dense::operator+(const Dense& other) const {
-    std::vector<double> result; 
+    std::vector<double> result(data.size(), 0); 
     for (std::size_t i = 0; i < rows; ++i) {
         for (std::size_t j = 0; j < cols; ++j) {
-            result.push_back(data[i * cols + j] + other(i,j));
+            result[i* cols + j] = data[i * cols + j] + other(i,j);
         }
     }
     Dense ans(result, cols, rows);
@@ -27,10 +27,10 @@ Dense Dense::operator+(const Dense& other) const {
 }
 
 Dense Dense::operator*(double alpha) const {
-    std::vector<double> result; 
+    std::vector<double> result(data.size(), 0);
     for (std::size_t i = 0; i < rows; ++i) {
         for (std::size_t j = 0; j < cols; ++j) {
-            result.push_back(data[i * cols + j] * alpha);
+            result[i* cols + j] = data[i * cols + j] * alpha;
         }
     }
     Dense ans(result, cols, rows);
@@ -38,21 +38,21 @@ Dense Dense::operator*(double alpha) const {
 }
 
 std::vector<double> Dense::operator*(const std::vector<double>& vec) const {
-    std::vector<double> result;
+    std::vector<double> result(rows);
     for (std::size_t i = 0; i < rows; ++i) {
         for (std::size_t j = 0; j < cols; ++j) {
-            result.push_back(data[i * cols + j] * vec[j]);
+            result[i] += data[i * cols + j] * vec[j];
         }
     } 
     return result;
 }
 
 Dense Dense::operator*(const Dense& other) const {
-    std::vector<double> result;
+    std::vector<double> result(data.size(), 0);
     for (std::size_t i = 0; i < rows; ++i) {
         for (std::size_t j = 0; j < other.cols; ++j) {
             for (std::size_t k = 0; k < cols; ++k) {
-                result.push_back(data[i * cols + k] * other(k, j));
+                result[i * cols + j] += data[i * cols + k] * other(k, j);
             }
         }
     }
@@ -73,15 +73,15 @@ std::vector<double> Dense::get_elements(const std::vector<double>& data) const {
     return data;
 }
 
-std::vector<double> Dense::get_column(std::size_t num) const{
+const std::vector<double> Dense::get_column(std::size_t num) const{
         std::vector<double> column(rows, 0);
         for(int i = 0; i < rows; i++){
-            column[i] = data[rows * i + num];
+            column[i] = data[cols * i + num];
         }
         return column;
     }
 
-std::vector<double> Dense::get_row(std::size_t num) const{
+const std::vector<double> Dense::get_row(std::size_t num) const{
         std::vector<double> row(cols, 0);
         for(int j = 0; j < cols; j++){
             row[j] = data[num*cols + j];
@@ -113,4 +113,14 @@ Dense Dense::transpon() const{
     }
     Dense N(v, rows, cols);
     return N;
+}
+
+bool Dense::operator == (const Dense & other){
+    for (std::size_t i = 0; i < rows; ++i) {
+        for (std::size_t j = 0; j < cols; ++j) {
+        if (std::abs(data[i * cols + i] - other(i, j)) > 0.01)
+            return false;
+        }
+    }
+    return true;
 }

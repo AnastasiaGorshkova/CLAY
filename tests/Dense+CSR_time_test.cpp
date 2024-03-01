@@ -17,13 +17,12 @@ void get_time_CSR(){
 	double val; //значение из вектора a
     std::ofstream file;
     file.open ("time_CSR_50.csv"); //файл для записи данных
-	for(size_t i = 10; i < 2110; i += 10){
+	for(size_t i = 10; i < 1010; i += 10){
 		for(size_t j = 0; j < i * i; j++){
 			val = ((std::rand() % 2 == 0) ? std::rand() : 0); 
 			a.push_back(val);
 		}
-		Dense D(a, i, i);
-		CSR A(D);
+		CSR A(a, i, i);
 
 		for(size_t j = 0; j <= i; j++){
 			b.push_back(std::rand());
@@ -48,7 +47,7 @@ void get_time_Dense(){
 	double val; //значение из вектора a
     std::ofstream file;
     file.open ("time_Dense_50.csv"); //файл для записи данных
-	for(size_t i = 10; i < 2110; i += 10){
+	for(size_t i = 10; i < 1010; i += 10){
 		for(size_t j = 0; j < i * i; j++){
 			val = ((std::rand() % 2 == 0) ? std::rand() : 0); 
 			a.push_back(val);

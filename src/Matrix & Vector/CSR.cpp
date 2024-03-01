@@ -3,20 +3,20 @@
 CSR::CSR(const std::vector<double>& values, const std::vector<unsigned int>& cols, const std::vector<unsigned int>& rows) : values(values), cols(cols), rows(rows) {}
 
 
-CSR::CSR(const Dense& D) {
-	std::size_t temp = 0;
-	rows.push_back(0);
-	for (std::size_t i = 0; i < D.get_rows(); i++) {
-		for (std::size_t j = 0; j < D.get_cols(); j++) {
-			if (D(i, j) != 0) {
-				values.push_back(D(i, j));
+CSR::CSR(const std::vector<double>& data, std::size_t r, std::size_t c) {
+	std::size_t temp = 0; // количество ненулевых элементов
+	rows.resize(r+1);
+	rows[0] = 0;
+	for (std::size_t i = 0; i < r; i++) {
+		for (std::size_t j = 0; j < c; j++) {
+			if (data[i*c + j] != 0) {
+				values.push_back(data[i*c + j]);
 				cols.push_back(j);
 				temp++;
 			}
 		}
-		rows.push_back(temp);
+		rows[i+1] = temp;
 	}
-
 }
 
 double CSR::operator()(std::size_t i, std::size_t j) const {
@@ -29,23 +29,20 @@ double CSR::operator()(std::size_t i, std::size_t j) const {
 }
 
 CSR CSR::operator*(double alpha) const {
-    std::vector<double> result;
+    std::vector<double> result(values.size());
     for (std::size_t i = 0; i < values.size(); ++i) {
-        result.push_back(values[i]* alpha);
+        result[i] = (values[i] * alpha);
     }
     CSR res(result, cols, rows);
     return res;
 }
 
 std::vector<double> CSR::operator*(const std::vector<double>& vec) const {
-    std::vector<double> result;
-    double temp;
-    for (std::size_t i = 0; i < rows.size() -1; ++i) {
-    	temp = 0;
+    std::vector<double> result(vec.size(), 0);
+    for (std::size_t i = 0; i < vec.size(); ++i) {
         for (std::size_t k = rows[i]; k < rows[i + 1]; ++k) {
-            temp += values[k] * vec[cols[k]];
+            result[i] += values[k] * vec[cols[k]];
         }
-        result.push_back(temp);
     }
     return result;
 }
@@ -61,3 +58,27 @@ void CSR::print() const {
         for(std::size_t i = 0; i < rows.size(); i++) std::cout << rows[i] << " ";
         std::cout << std::endl;    
 }
+
+std::vector<double> CSR::Jakobi_reverse_diag() {
+	std::vector<double> v(rows.size()- 1);
+	for (std::size_t i = 0; i < v.size(); ++i) {
+        	for (std::size_t k = rows[i]; k < rows[i + 1]; ++k) {
+        	    if (i == cols[k]){
+            		v[i] = 1 / values[k];
+            	    }
+        	} 
+	}
+	return v;
+}
+
+std::vector<double> CSR::Jakobi_non_diagonal(const std::vector<double>& vec) {
+	std::vector<double> result(vec.size(), 0);
+	for (std::size_t i = 0; i < vec.size(); ++i) {
+        	for (std::size_t k = rows[i]; k < rows[i + 1]; ++k) {
+        	    if (i == cols[k]) continue;
+        	    else result[i] += values[k] * vec[cols[k]];        	    	
+        	}
+	}
+	return result;
+}
+

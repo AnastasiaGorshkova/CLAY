@@ -25,5 +25,7 @@ std::vector<double> operator/(const std::vector<double>& a, const double& alpha)
 std::vector<double> transposed(const std::vector<double>& x);
 
 double modul(const std::vector<double>& x);
+double sq(const std::vector<double>& x);
 
-double sign(const std::vector<double>& x);
+int sign(const std::vector<double>& x);
+std::vector<double> mul(const std::vector<double>& a, const std::vector<double>& b);
