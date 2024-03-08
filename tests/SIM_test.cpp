@@ -1,8 +1,6 @@
 #include<gtest/gtest.h>
 #include <Matrix & Vector/Dense.hpp>
-#include <SIM/Simple_iteration.cpp>
-#include <SIM/Jacobi.cpp>
-#include <SIM/Gauss-Seidel.cpp>
+#include <SIM/SIM.hpp>
 
 TEST(Simple_iteration, TEST_1)
 {
@@ -48,6 +46,23 @@ TEST(Jacobi, TEST_1)
 	
 	std::vector<double> b = A * x;
 	std::vector<double> result = Jacobi(A, b, x0, tolerance);
+	for (std::size_t i = 0; i < 3; ++i) {
+       		ASSERT_NEAR(result[i], x[i] , 0.1);
+    	}
+}
+
+TEST(Chebyshev, TEST_1)
+{
+	std::vector<double> a = {3, 1, 0, 2, 5, 1, 6, 0, 7};
+	std::vector<double> x = {2.5, 1, 3};
+	CSR A(a, 3, 3);
+	double tolerance = pow(10,-12);
+
+	std::vector<double> x0 = {-15, 260, 27};
+	std::vector<double> b = A * x;
+	
+	std::vector<double> result = Chebyshev(A, b, x0, tolerance, 8, 2.738, 7.602);
+		
 	for (std::size_t i = 0; i < 3; ++i) {
        		ASSERT_NEAR(result[i], x[i] , 0.1);
     	}

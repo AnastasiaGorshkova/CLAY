@@ -1,5 +1,4 @@
-#include <Matrix & Vector/CSR.hpp>
-#include <Matrix & Vector/vector.hpp>
+#include "SIM.hpp"
 
 std::vector<double> Gauss_Seidel(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, double tolerance) {
     	std::vector<double> x = x0; // x0 - начальное приближение
