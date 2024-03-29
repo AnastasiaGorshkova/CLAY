@@ -31,8 +31,8 @@ public:
     // вывод матрицы в нужном формате
     void print() const;
     
-    std::vector<double> Jakobi_reverse_diag();
-    std::vector<double> Jakobi_non_diagonal(const std::vector<double>& vec);
+    std::vector<double> Jakobi_reverse_diag() const;
+    std::vector<double> Jakobi_non_diagonal(const std::vector<double>& vec) const;
 
     // получение векторов
     const std::vector<double>& get_values() const {

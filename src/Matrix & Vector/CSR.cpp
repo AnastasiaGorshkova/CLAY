@@ -59,7 +59,7 @@ void CSR::print() const {
         std::cout << std::endl;    
 }
 
-std::vector<double> CSR::Jakobi_reverse_diag() {
+std::vector<double> CSR::Jakobi_reverse_diag() const {
 	std::vector<double> v(rows.size()- 1);
 	for (std::size_t i = 0; i < v.size(); ++i) {
         	for (std::size_t k = rows[i]; k < rows[i + 1]; ++k) {
@@ -71,7 +71,7 @@ std::vector<double> CSR::Jakobi_reverse_diag() {
 	return v;
 }
 
-std::vector<double> CSR::Jakobi_non_diagonal(const std::vector<double>& vec) {
+std::vector<double> CSR::Jakobi_non_diagonal(const std::vector<double>& vec) const {
 	std::vector<double> result(vec.size(), 0);
 	for (std::size_t i = 0; i < vec.size(); ++i) {
         	for (std::size_t k = rows[i]; k < rows[i + 1]; ++k) {

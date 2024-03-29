@@ -5,31 +5,27 @@ std::vector<double> Sym_Gauss_Seidel(const CSR& A, const std::vector<double>& b,
     	std::vector<double> res = A * x - b;
     	double diag; // диагональный элемент
     	
-    	std::vector<unsigned int> c = A.get_cols();
-    	std::vector<unsigned int> r = A.get_rows();
-    	std::vector<double> val = A.get_values();
-    	
     	while (modul(res) > tolerance){
 		for (std::size_t i = 0; i < x.size(); ++i) {
 		    x[i] = b[i];
-		    for(std::size_t k = r[i]; k < r[i+1]; k++){
-		       if (c[k] == i){
+		    for(std::size_t k = A.get_rows()[i]; k < A.get_rows()[i+1]; k++){
+		       if (A.get_cols()[k] == i){
 		            diag = A(i,i);
 		            continue;
 		       }
-		       x[i] -= val[k] * x[c[k]];
+		       x[i] -= A.get_values()[k] * x[A.get_cols()[k]];
 		    }
 		    x[i] /= diag;
 		}
 		for (std::size_t i = x.size(); i > 0;) {
 		--i;
 		    x[i] = b[i];
-		    for(std::size_t k = r[i]; k < r[i+1]; k++){
-		       if (c[k] == i){
+		    for(std::size_t k = A.get_rows()[i]; k < A.get_rows()[i+1]; k++){
+		       if (A.get_cols()[k] == i){
 		            diag = A(i,i);
 		            continue;
 		       }
-		       x[i] -= val[k] * x[c[k]];
+		       x[i] -= A.get_values()[k] * x[A.get_cols()[k]];
 		    }
 		    x[i] /= diag;
 		}
