@@ -10,3 +10,7 @@ std::vector<double> Jacobi( CSR& A, const std::vector<double>& b, const std::vec
 std::vector<double> Gauss_Seidel(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, double tolerance);
 
 std::vector<double> Chebyshev(const CSR& A, const std::vector<double> &b, const std::vector<double> &x0, long double tolerance, std::size_t res, double lambda_min, double lambda_max);
+
+std::vector<double> Gradient(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, long double tolerance);
+
+std::vector<double> Sym_Gauss_Seidel(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, double tolerance);
