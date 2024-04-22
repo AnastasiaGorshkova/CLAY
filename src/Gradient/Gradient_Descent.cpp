@@ -1,4 +1,4 @@
-#include "SIM.hpp"
+#include "GM.hpp"
 
 std::vector<double> Gradient(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, long double tolerance) {
     	std::vector<double> x = x0; // x0 - начальное приближение

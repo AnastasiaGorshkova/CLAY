@@ -17,6 +17,12 @@ std::vector<double> Gauss_Seidel(const CSR& A, const std::vector<double>& b, con
             }
             x[i] /= diag;
         }
+        
+        for (unsigned i = 0; i < x.size(); i++) {
+	    std::cout << x[i] << " ";
+	}
+	std::cout << std::endl;
+        
     	res = A * x - b;
     	}	
         return x;

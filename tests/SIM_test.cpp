@@ -68,21 +68,6 @@ TEST(Chebyshev, TEST_1)
     	}
 }
 
-TEST(Gradient_Descent, TEST_1)
-{
-	std::vector<double> a = {3, 1, 0, 2, 5, 1, 6, 0, 7};
-	std::vector<double> x = {2.5, 1, 3};
-	CSR A(a, 3, 3);
-	double tolerance = pow(10,-13);
-	std::vector<double> x0 = {-15, 100, 567};
-	std::vector<double> b = A * x;
-	
-	std::vector<double> result = Gradient(A, b, x0, tolerance);	
-	for (std::size_t i = 0; i < 3; ++i) {
-       		ASSERT_NEAR(result[i], x[i] , 0.1);
-    	}
-}
-
 TEST(Sym_Gauss_Seidel, TEST_1)
 {
 	std::vector<double> a = {33.7, 2, 11, 20, 42, 3, 1, 0, 7};
@@ -94,6 +79,24 @@ TEST(Sym_Gauss_Seidel, TEST_1)
 	
 	std::vector<double> b = A * x;
 	std::vector<double> result = Sym_Gauss_Seidel(A, b, x0, tolerance);
+	
+	for (std::size_t i = 0; i < 3; ++i) {
+       		ASSERT_NEAR(result[i], x[i] , 0.1);
+    	}
+}
+
+TEST(Chebyshev_Sym_GS, TEST_1)
+{
+	std::vector<double> a = {12.5, 1, 3, 9.7, 52, 11.2, 0, 8.7, 67};
+	std::vector<double> x = {0.4, 5.2, 3.7};
+	CSR A(a, 3, 3);
+	
+	double tolerance = pow(10,-12);
+	double rho = 0.08;
+	std::vector<double> x0 = {-24, 5, 17};
+	
+	std::vector<double> b = A * x;
+	std::vector<double> result = Chebyshev_Sym_GS(A, b, x0, tolerance, rho);
 	
 	for (std::size_t i = 0; i < 3; ++i) {
        		ASSERT_NEAR(result[i], x[i] , 0.1);

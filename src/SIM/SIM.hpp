@@ -11,6 +11,8 @@ std::vector<double> Gauss_Seidel(const CSR& A, const std::vector<double>& b, con
 
 std::vector<double> Chebyshev(const CSR& A, const std::vector<double> &b, const std::vector<double> &x0, long double tolerance, std::size_t res, double lambda_min, double lambda_max);
 
-std::vector<double> Gradient(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, long double tolerance);
-
 std::vector<double> Sym_Gauss_Seidel(const CSR& A, const std::vector<double>& b, const std::vector<double>& x0, double tolerance);
+
+std::vector<double> Chebyshev_Sym_GS(const CSR& A,const std::vector<double>& b, const std::vector<double>& x0, double tolerance, double rho);
+
+std::vector<double> iteration_Sym_GS(const CSR& A, const std::vector<double> &b, const std::vector<double> &y);

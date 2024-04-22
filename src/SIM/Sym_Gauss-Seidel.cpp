@@ -17,8 +17,14 @@ std::vector<double> Sym_Gauss_Seidel(const CSR& A, const std::vector<double>& b,
 		    }
 		    x[i] /= diag;
 		}
+		
+		for (unsigned i = 0; i < x.size(); i++) {
+		    std::cout << x[i] << " ";
+		}
+		std::cout << std::endl;
+		
 		for (std::size_t i = x.size(); i > 0;) {
-		--i;
+		    --i;
 		    x[i] = b[i];
 		    for(std::size_t k = A.get_rows()[i]; k < A.get_rows()[i+1]; k++){
 		       if (A.get_cols()[k] == i){
@@ -29,6 +35,12 @@ std::vector<double> Sym_Gauss_Seidel(const CSR& A, const std::vector<double>& b,
 		    }
 		    x[i] /= diag;
 		}
+		
+		for (unsigned i = 0; i < x.size(); i++) {
+		    std::cout << x[i] << " ";
+		}
+		std::cout << std::endl;
+		
 	    	res = A * x - b;
     	}	
         return x;
