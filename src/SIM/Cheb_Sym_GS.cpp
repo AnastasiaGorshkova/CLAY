@@ -3,6 +3,15 @@
 std::vector<double> Chebyshev_Sym_GS(const CSR& A,const std::vector<double>& b, const std::vector<double>& x0, double tolerance, double rho) {
             std::vector<double> y_m = x0;
             std::vector<double> y_p = iteration_Sym_GS(A, b, y_m);
+            
+            for (std::size_t i = 0; i < y_p.size(); i++)
+            {
+            	std::cout<<y_p[i]<<std::endl;
+       
+            }
+            
+            std::cout<< "nmsjdvn" <<std::endl;
+            
             std::vector<double> res = A * y_p - b;
 
             double mu_m = 1;
@@ -14,13 +23,24 @@ std::vector<double> Chebyshev_Sym_GS(const CSR& A,const std::vector<double>& b, 
 
                 y_p = iteration_Sym_GS(A, b, y_p);
 
+	
+
                 for (std::size_t i = 0; i < y_p.size(); i++) {
                     y_p[i] = 2 * mu * y_p[i] / ( rho * mu_p) - mu_m * y_m[i] / mu_p;
                 }
+                
+                for (std::size_t i = 0; i < y_p.size(); i++)
+            {
+            	std::cout<<y_p[i]<<std::endl;
+            }
 
                 y_m = y_p;
                 mu_m = mu;
                 mu = mu_p;
+
+		std::cout<< mu_m <<std::endl;
+		std::cout<< mu <<std::endl;
+	
 
                 res = A * y_p - b;
             }

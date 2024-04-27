@@ -102,3 +102,22 @@ TEST(Chebyshev_Sym_GS, TEST_1)
        		ASSERT_NEAR(result[i], x[i] , 0.1);
     	}
 }
+
+TEST(Chebyshev_Sym_GS, TEST_2)
+{
+	std::vector<double> a = {21, 5, 3, 3, 16, 3, 5, 1, 19};
+	std::vector<double> x = {0.009, 0.288, 0.456};
+	CSR A(a, 3, 3);
+	
+	double tolerance = pow(10,-12);
+	double rho = 0.073381;
+	std::vector<double> x0 = {0, 0, 0};
+	
+	std::vector<double> b = {3, 6, 9};
+	std::vector<double> result = Chebyshev_Sym_GS(A, b, x0, tolerance, rho);
+	
+	for (std::size_t i = 0; i < 3; ++i) {
+       		ASSERT_NEAR(result[i], x[i] , 0.1);
+    	}
+}
+
