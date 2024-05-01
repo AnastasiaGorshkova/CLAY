@@ -37,7 +37,10 @@ class Dense
 	    // вывод матрицы
 	    void print() const;
 	    
+	    Dense(const double elem, const std::size_t rows, const std::size_t cols);
 	    
+	    double& get_element(std::size_t i,  std::size_t j);
+	    void change_column(const std::vector<double>& vec, std::size_t i);
 	    
 	    const std::vector<double> get_column(std::size_t num) const;
 	    const std::vector<double> get_row(std::size_t num) const;

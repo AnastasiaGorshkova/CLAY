@@ -1,5 +1,8 @@
 #include "Dense.hpp"
 
+Dense::Dense(const double elem, const std::size_t rows, const std::size_t cols):
+          data(std::vector(rows * cols, elem)), rows(rows), cols(cols) {}
+
 Dense::Dense(const std::vector<double>& data, std::size_t rows, std::size_t cols) : rows(rows), cols(cols), data(data) {}
 
 double Dense::operator()(std::size_t i, std::size_t j) const {
@@ -88,6 +91,21 @@ const std::vector<double> Dense::get_row(std::size_t num) const{
         }
         return row;
 }
+
+
+double& Dense::get_element(std::size_t i,  std::size_t j){
+        return(data[i * cols + j]);
+    }
+    
+   
+
+void Dense::change_column(const std::vector<double>& vec, std::size_t i){
+	for(std::size_t j = 0; j < rows; j++){
+		data[cols* j + i] = vec[j];
+        }
+}
+
+
 
 /*void Dense::single(std::size_t n) {
     std::vector<double> vec(n * n);
